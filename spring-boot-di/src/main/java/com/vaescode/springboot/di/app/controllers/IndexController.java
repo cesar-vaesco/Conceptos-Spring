@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     @Autowired
-    @Qualifier("miServicioSimple")
+    @Qualifier("miServicioComplejo")
     private IServicio servicio;
 
     @GetMapping({"", "/", "/index"})

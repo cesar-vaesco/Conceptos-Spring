@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Component("miServicioSimple")
-@Primary // Esta anotación permite definir que bean tiene prioridad de inyección en el controller
+//@Component("miServicioSimple")
+//@Primary // Esta anotación permite definir que bean tiene prioridad de inyección en el controller
 public class MiServicio implements IServicio {
 
 

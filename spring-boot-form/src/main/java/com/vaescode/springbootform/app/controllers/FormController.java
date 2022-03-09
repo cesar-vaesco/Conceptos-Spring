@@ -10,6 +10,7 @@ public class FormController {
 
     @GetMapping("/form")
     public String form(Model model) {
+        model.addAttribute("titulo", "Formulario: ");
         return "form";
     }
 

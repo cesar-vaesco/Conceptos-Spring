@@ -1,6 +1,6 @@
 package com.vaescode.springboot.di.app.models.domain;
 
-import java.util.List;
+
 
 public class ItemFactura {
 
@@ -12,6 +12,14 @@ public class ItemFactura {
         this.cantidad = cantidad;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
     public Integer getCantidad() {
         return cantidad;
     }
@@ -20,11 +28,7 @@ public class ItemFactura {
         this.cantidad = cantidad;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public Integer calcularImporte(){
+        return  cantidad * producto.getPrecio();
     }
 }

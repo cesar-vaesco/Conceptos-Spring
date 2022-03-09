@@ -1,12 +1,14 @@
 package com.vaescode.springboot.di.app.models.service;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
-public class MiServicio {
+@Component("miServicioSimple")
+public class MiServicio implements IServicio {
 
-    public String operacion(){
-        return "Ejecutando algún proceso importante...";
+
+    @Override
+    public String operacion() {
+        return "Ejecutando algún proceso importante usando una interfaz...";
     }
-
 }

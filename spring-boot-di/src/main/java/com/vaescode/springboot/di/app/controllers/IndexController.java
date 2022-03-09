@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-
+    @Autowired
     private IServicio servicio;
 
     @GetMapping({"", "/", "/index"})
@@ -19,15 +19,5 @@ public class IndexController {
         return "index";
     }
 
-    /*
-    * @Autowired
-    public void setServicio(IServicio servicio) {
-        this.servicio = servicio;
-    }
-    * */
 
-    //No es necesario anotare con @Autowired el constructor
-    public IndexController(IServicio servicio) {
-        this.servicio = servicio;
-    }
 }

@@ -9,10 +9,11 @@ import java.util.List;
 @Component
 public class Factura {
 
-    @Value("${description.factura}")
+    @Value("${factura.description}")
     private String descripcion;
     @Autowired
     private Cliente cliente;
+    @Autowired
     private List<ItemFactura> items;
 
     public String getDescripcion() {

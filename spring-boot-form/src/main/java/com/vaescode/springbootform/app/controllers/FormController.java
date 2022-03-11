@@ -19,6 +19,11 @@ public class FormController {
     public String form(Model model) {
     	
     	Usuario usuario  = new Usuario();
+    	
+    	usuario.setIdentificador("123.456.678-k");
+    	usuario.setNombre("Jhon");
+    	usuario.setApellido("Doe");
+    	
         model.addAttribute("titulo", "Formulario usuario ");
         model.addAttribute("usuario", usuario);
         return "form";

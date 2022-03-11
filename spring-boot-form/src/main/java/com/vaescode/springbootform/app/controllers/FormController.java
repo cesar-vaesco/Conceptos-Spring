@@ -9,10 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.vaescode.springbootform.app.models.domain.Usuario;
 
+
 @Controller
+@SessionAttributes("usuario") // -> nombre con que se pasa el objeto al formulario
 public class FormController {
 
     @GetMapping("/form")
@@ -31,16 +35,16 @@ public class FormController {
     
 
     @PostMapping("/form")
-    public String procesarFormulario(@Valid  Usuario usuario, BindingResult result, Model model) {
-
+    public String procesarFormulario(@Valid  Usuario usuario, BindingResult result, Model model, SessionStatus status ) {
+    	 model.addAttribute("titulo", "Resultado del formulario ");
 
         if(result.hasErrors()){
            
             return "form";
         }
 
-        model.addAttribute("titulo", "Resultado del formulario ");
         model.addAttribute("usuario", usuario);
+        status.setComplete(); // -> cerramos la session del llenado del formulario usando una estancia de SessionStatus
 
         return "resultado";
     }

@@ -1,7 +1,5 @@
 package com.vaescode.springbootform.app.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,50 +16,48 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.vaescode.springbootform.app.models.domain.Usuario;
 import com.vaescode.springbootform.app.validation.UsuarioValidador;
 
-
 @Controller
 @SessionAttributes("usuario") // -> nombre con que se pasa el objeto al formulario
 public class FormController {
-	
+
 	@Autowired
 	private UsuarioValidador validador;
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(validador);
 	}
 
-	
-    @GetMapping("/form")
-    public String form(Model model) {
-    	
-    	Usuario usuario  = new Usuario();
-    	
-    	usuario.setIdentificador("123.456.678-k");
-    	usuario.setNombre("Jhon");
-    	usuario.setApellido("Doe");
-    	
-        model.addAttribute("titulo", "Formulario usuario ");
-        model.addAttribute("usuario", usuario);
-        return "form";
-    }
-    
+	@GetMapping("/form")
+	public String form(Model model) {
 
-    @PostMapping("/form")
-    public String procesarFormulario(@Valid  Usuario usuario, BindingResult result, Model model, SessionStatus status ) {
-    	 
-    	//validador.validate(usuario,result);
-    	
-    	model.addAttribute("titulo", "Resultado del formulario ");
+		Usuario usuario = new Usuario();
 
-        if(result.hasErrors()){
-           
-            return "form";
-        }
+		usuario.setIdentificador("123.456.678-k");
+		usuario.setNombre("Jhon");
+		usuario.setApellido("Doe");
 
-        model.addAttribute("usuario", usuario);
-        status.setComplete(); // -> cerramos la session del llenado del formulario usando una estancia de SessionStatus
+		model.addAttribute("titulo", "Formulario usuario ");
+		model.addAttribute("usuario", usuario);
+		return "form";
+	}
 
-        return "resultado";
-    }
+	@PostMapping("/form")
+	public String procesarFormulario(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
+
+		// validador.validate(usuario,result);
+
+		model.addAttribute("titulo", "Resultado del formulario ");
+
+		if (result.hasErrors()) {
+
+			return "form";
+		}
+
+		model.addAttribute("usuario", usuario);
+		status.setComplete(); // -> cerramos la session del llenado del formulario usando una estancia de
+								// SessionStatus
+
+		return "resultado";
+	}
 }

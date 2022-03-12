@@ -4,6 +4,7 @@ package com.vaescode.springbootform.app.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.vaescode.springbootform.app.models.domain.Usuario;
+import com.vaescode.springbootform.app.validation.UsuarioValidador;
 
 
 @Controller
 @SessionAttributes("usuario") // -> nombre con que se pasa el objeto al formulario
 public class FormController {
+	
+	@Autowired
+	private UsuarioValidador validador;
 
     @GetMapping("/form")
     public String form(Model model) {
@@ -36,7 +41,10 @@ public class FormController {
 
     @PostMapping("/form")
     public String procesarFormulario(@Valid  Usuario usuario, BindingResult result, Model model, SessionStatus status ) {
-    	 model.addAttribute("titulo", "Resultado del formulario ");
+    	 
+    	validador.validate(usuario,result);
+    	
+    	model.addAttribute("titulo", "Resultado del formulario ");
 
         if(result.hasErrors()){
            

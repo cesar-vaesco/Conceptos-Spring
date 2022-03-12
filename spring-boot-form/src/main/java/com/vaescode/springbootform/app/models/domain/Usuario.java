@@ -22,7 +22,7 @@ public class Usuario {
 	private String password;
 
 	@NotEmpty
-	@Email(message = "Correo copn formato incorrecto")
+	@Email
 	private String email;
 
 	public String getIdentificador() {

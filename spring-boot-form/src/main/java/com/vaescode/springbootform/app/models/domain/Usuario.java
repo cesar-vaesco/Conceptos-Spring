@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.vaescode.springbootform.app.validation.IdentificadorRegex;
+import com.vaescode.springbootform.app.validation.Requerido;
 
 public class Usuario {
 
@@ -16,7 +17,8 @@ public class Usuario {
 	// @NotEmpty(message = "el nombre no pede ser vacio")
 	private String nombre;
 
-	@NotEmpty
+	// @NotEmpty
+	@Requerido
 	private String apellido;
 
 	@NotBlank // Valida espacios en blanco
@@ -26,7 +28,7 @@ public class Usuario {
 	@NotEmpty
 	private String password;
 
-	@NotEmpty
+	@Requerido
 	@Email
 	private String email;
 

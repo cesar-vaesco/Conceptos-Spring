@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.vaescode.springbootform.app.editors.NombreMayusculaEditors;
+import com.vaescode.springbootform.app.models.domain.Pais;
 import com.vaescode.springbootform.app.models.domain.Usuario;
 import com.vaescode.springbootform.app.validation.UsuarioValidador;
 
@@ -38,7 +39,7 @@ public class FormController {
 		binder.addValidators(validador);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		dateFormat.setLenient(false); // Analisis estricto del dato a ingresar
 		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(dateFormat, true));
 
@@ -49,11 +50,24 @@ public class FormController {
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditors());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
 	}
-	
+
+	@ModelAttribute("listaPaises")
+	public List<Pais> listaPaises(){
+		return Arrays.asList(
+				new Pais(1, "ES","España"), 
+				new Pais(2, "MX","México"), 
+				new Pais(3,"CL","Chile"), 
+				new Pais(4, "PU","Perú"), 
+				new Pais(5, "AR","Argentina"), 
+				new Pais(6, "EC","Ecuador"), 
+				new Pais(7, "CO", "Colombia"), 
+				new Pais(8, "VZ","Venezuela"));
+	}
+
 	@ModelAttribute("paisesMap")
-	public Map<String, String> paisesMap(){
-		Map<String, String> paises = new HashMap<String, String>(); 
-		//paises.put(key, value)
+	public Map<String, String> paisesMap() {
+		Map<String, String> paises = new HashMap<String, String>();
+		// paises.put(key, value)
 		paises.put("MX", "México");
 		paises.put("ES", "España");
 		paises.put("CL", "Chile");
@@ -62,13 +76,12 @@ public class FormController {
 		paises.put("EC", "Ecuador");
 		paises.put("CO", "Colombia");
 		paises.put("VE", "Venezuela");
-		
+
 		return paises;
 	}
 
-	
 	@ModelAttribute("paises")
-	public List<String> paises(){
+	public List<String> paises() {
 		return Arrays.asList("España", "México", "Chile", "Perú", "Argentina", "Ecuador", "Colombia", "Venezuela");
 	}
 
@@ -105,7 +118,5 @@ public class FormController {
 
 		return "resultado";
 	}
-	
-	
-	
+
 }

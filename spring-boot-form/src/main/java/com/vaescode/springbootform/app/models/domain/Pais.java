@@ -1,11 +1,12 @@
 package com.vaescode.springbootform.app.models.domain;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 public class Pais {
 
-	@NotNull
+	
 	private Integer id;
+	@NotEmpty
 	private String codigo;
 	private String nombre;
 

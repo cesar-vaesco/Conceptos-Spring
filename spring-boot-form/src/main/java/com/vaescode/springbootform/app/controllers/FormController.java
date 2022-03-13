@@ -1,6 +1,7 @@
 package com.vaescode.springbootform.app.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class FormController {
 
 	@Autowired
 	private IPaisesService paisesService;
-	
+
 	@Autowired
 	private PaisPropertyEditor paisEditor;
 
@@ -57,14 +58,25 @@ public class FormController {
 		 */
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditors());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
-		
-		
+
 		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
 	}
 
 	@ModelAttribute("listaPaises")
 	public List<Pais> listaPaises() {
 		return paisesService.listar();
+	}
+
+	@ModelAttribute("listaRolesString") //-> Así se pasa al formulario
+	public List<String> listaRolesString() {
+
+		List<String> roles = new ArrayList<>();
+
+		roles.add("ROLE_ADMIN");
+		roles.add("ROLE_USER");
+		roles.add("ROLE_MODERATOR");
+
+		return roles;
 	}
 
 	@ModelAttribute("paisesMap")

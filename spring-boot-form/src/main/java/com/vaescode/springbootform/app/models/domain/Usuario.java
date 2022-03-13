@@ -1,8 +1,8 @@
 package com.vaescode.springbootform.app.models.domain;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -51,6 +51,9 @@ public class Usuario {
 
 	@NotNull
 	private Pais pais;
+	
+	@NotEmpty
+	private List<String> roles;
 
 	public String getIdentificador() {
 		return identificador;
@@ -123,5 +126,15 @@ public class Usuario {
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+	
+	
 
 }

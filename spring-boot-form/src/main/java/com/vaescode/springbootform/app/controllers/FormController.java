@@ -73,6 +73,7 @@ public class FormController {
 		// validador.validate(usuario,result);
 
 		model.addAttribute("titulo", "Resultado del formulario ");
+		model.addAttribute("fechas", "Diferente formato de fechas");
 
 		if (result.hasErrors()) {
 

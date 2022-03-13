@@ -3,6 +3,8 @@ package com.vaescode.springbootform.app.services;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.vaescode.springbootform.app.models.domain.Pais;
 
 

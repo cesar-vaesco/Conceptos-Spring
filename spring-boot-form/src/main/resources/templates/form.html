@@ -12,15 +12,15 @@
 	<form th:action="@{/form}" th:object="${usuario}" method="post">
 
 		<div>
-			<label style="color:#4DB322" for="pais.codigo">Pais</label>
+			<label style="color:#4DB322" for="pais">Pais</label>
 			<div>
-				<select id="pais.codigo" th:field="*{pais.codigo}">
+				<select id="pais" th:field="*{pais}">
 					<option style="color:#1C1E1B" value="">--- Seleccionar ---</option>
 					<option style="color:#1C1E1B" th:each="pais: ${listaPaises}" th:text="${pais.nombre}"
-						th:value="${pais.codigo}"></option>
+						th:value="${pais.id}"></option>
 				</select>
 			</div>
-			<div style="color:#990000" th:if="${#fields.hasErrors('pais.codigo')}" th:errors="*{pais.codigo}"></div>
+			<div style="color:#990000" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></div>
 		</div>
 
 		<div>

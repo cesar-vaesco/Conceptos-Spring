@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.vaescode.springbootform.app.editors.NombreMayusculaEditors;
 import com.vaescode.springbootform.app.models.domain.Usuario;
 import com.vaescode.springbootform.app.validation.UsuarioValidador;
 
@@ -30,10 +31,18 @@ public class FormController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(validador);
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false); //Analisis estricto del dato a ingresar
+		
+		dateFormat.setLenient(false); // Analisis estricto del dato a ingresar
 		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(dateFormat, true));
+
+		/*
+		 * --> para todos los campos del tipo String
+		 * binder.registerCustomEditor(String.class, new NombreMayusculaEditors());
+		 */
+		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditors());
+		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
 	}
 
 	@GetMapping("/form")
@@ -41,7 +50,7 @@ public class FormController {
 
 		Usuario usuario = new Usuario();
 
-		usuario.setIdentificador("123.456.678-k");
+		usuario.setIdentificador("123.456.678-K");
 		usuario.setNombre("Jhon");
 		usuario.setApellido("Doe");
 

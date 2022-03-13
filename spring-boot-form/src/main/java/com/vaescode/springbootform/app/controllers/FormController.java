@@ -3,7 +3,9 @@ package com.vaescode.springbootform.app.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -47,6 +49,23 @@ public class FormController {
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditors());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
 	}
+	
+	@ModelAttribute("paisesMap")
+	public Map<String, String> paisesMap(){
+		Map<String, String> paises = new HashMap<String, String>(); 
+		//paises.put(key, value)
+		paises.put("MX", "México");
+		paises.put("ES", "España");
+		paises.put("CL", "Chile");
+		paises.put("PU", "Perú");
+		paises.put("AR", "Argentina");
+		paises.put("EC", "Ecuador");
+		paises.put("CO", "Colombia");
+		paises.put("VE", "Venezuela");
+		
+		return paises;
+	}
+
 	
 	@ModelAttribute("paises")
 	public List<String> paises(){

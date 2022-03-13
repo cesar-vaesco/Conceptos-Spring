@@ -48,6 +48,9 @@ public class Usuario {
 	@Past
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento; //año-mes-dia 2000-05-25
+	
+	@NotEmpty
+	private String pais;
 
 	public String getIdentificador() {
 		return identificador;
@@ -112,5 +115,15 @@ public class Usuario {
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+	
+	
 
 }

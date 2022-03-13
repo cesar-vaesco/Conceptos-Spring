@@ -1,7 +1,9 @@
 package com.vaescode.springbootform.app.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -43,6 +46,11 @@ public class FormController {
 		 */
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditors());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
+	}
+	
+	@ModelAttribute("paises")
+	public List<String> paises(){
+		return Arrays.asList("España", "México", "Chile", "Perú", "Argentina", "Ecuador", "Colombia", "Venezuela");
 	}
 
 	@GetMapping("/form")
@@ -77,4 +85,7 @@ public class FormController {
 
 		return "resultado";
 	}
+	
+	
+	
 }

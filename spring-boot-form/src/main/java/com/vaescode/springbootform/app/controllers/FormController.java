@@ -66,7 +66,21 @@ public class FormController {
 	public List<Pais> listaPaises() {
 		return paisesService.listar();
 	}
+	
+	
 
+	@ModelAttribute("listaRolesMap")
+	public Map<String, String> listaRolesMap() {
+		Map<String, String> roles = new HashMap<String, String>();
+		// roles.put(key, value)
+		roles.put("ROLE_ADMIN", "Admnistrador");
+		roles.put("ROLE_USER","Usuario");
+		roles.put("ROLE_MODERATOR","Moderador");
+	
+		return roles;
+	}
+	
+	
 	@ModelAttribute("listaRolesString") //-> Así se pasa al formulario
 	public List<String> listaRolesString() {
 
@@ -78,6 +92,7 @@ public class FormController {
 
 		return roles;
 	}
+	
 
 	@ModelAttribute("paisesMap")
 	public Map<String, String> paisesMap() {

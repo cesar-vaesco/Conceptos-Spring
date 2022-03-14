@@ -7,12 +7,21 @@
 
 </head>
 
-<body>
+<body style="background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);">
 	<h2 th:text="${titulo}"></h2>
 	<form th:action="@{/form}" th:object="${usuario}" method="post">
 
+
 		<div>
-			<label style="color:#4DB322" for="pais">Pais</label>
+			<label for="habilitar">Habilitar</label>
+			<div>
+				<input type="checkbox" id="habilitar" th:field="*{habilitar}">
+			</div>
+		</div>
+
+		<div>
+			<label for="pais">Pais</label>
 			<div>
 				<select id="pais" th:field="*{pais}">
 					<option style="color:#1C1E1B" value="">--- Seleccionar ---</option>

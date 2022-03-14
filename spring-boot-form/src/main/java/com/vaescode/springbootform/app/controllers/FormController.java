@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -45,13 +46,12 @@ public class FormController {
 
 	@Autowired
 	private IRoleService roleService;
-	
+
 	@Autowired
 	private PaisPropertyEditor paisEditor;
-	
+
 	@Autowired
 	private RolesEditors roleEditor;
-	
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -72,14 +72,14 @@ public class FormController {
 		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
 		binder.registerCustomEditor(Role.class, "roles", roleEditor);
 	}
-	
+
 	@ModelAttribute("genero")
-	public List<String> genero(){
+	public List<String> genero() {
 		return Arrays.asList("Hombre", "Mujer", "Otro");
 	}
-	
+
 	@ModelAttribute("listaRoles")
-	public List<Role> listaRoles(){
+	public List<Role> listaRoles() {
 		return this.roleService.listar();
 	}
 
@@ -87,22 +87,19 @@ public class FormController {
 	public List<Pais> listaPaises() {
 		return paisesService.listar();
 	}
-	
-	
 
 	@ModelAttribute("listaRolesMap")
 	public Map<String, String> listaRolesMap() {
 		Map<String, String> roles = new HashMap<String, String>();
 		// roles.put(key, value)
 		roles.put("ROLE_ADMIN", "Admnistrador");
-		roles.put("ROLE_USER","Usuario");
-		roles.put("ROLE_MODERATOR","Moderador");
-	
+		roles.put("ROLE_USER", "Usuario");
+		roles.put("ROLE_MODERATOR", "Moderador");
+
 		return roles;
 	}
-	
-	
-	@ModelAttribute("listaRolesString") //-> Así se pasa al formulario
+
+	@ModelAttribute("listaRolesString") // -> Así se pasa al formulario
 	public List<String> listaRolesString() {
 
 		List<String> roles = new ArrayList<>();
@@ -113,7 +110,6 @@ public class FormController {
 
 		return roles;
 	}
-	
 
 	@ModelAttribute("paisesMap")
 	public Map<String, String> paisesMap() {
@@ -146,7 +142,7 @@ public class FormController {
 		usuario.setApellido("Doe");
 		usuario.setHabilitar(true);
 		usuario.setValorSecreto("Algún valor secreto");
-		
+
 		usuario.setPais(new Pais(2, "MX", "México"));
 		usuario.setRoles(Arrays.asList(new Role(2, "Usuario", "ROLE_USER")));
 
@@ -156,22 +152,30 @@ public class FormController {
 	}
 
 	@PostMapping("/form")
-	public String procesarFormulario(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
-
-		// validador.validate(usuario,result);
-
-		model.addAttribute("titulo", "Resultado del formulario ");
-		model.addAttribute("fechas", "Diferente formato de fechas");
+	public String procesarFormulario(@Valid Usuario usuario, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-
+			model.addAttribute("titulo", "Resultado del formulario ");
 			return "form";
 		}
 
+		return "redirect:/ver";
+	}
+
+	@GetMapping("/ver")
+	public String ver(@SessionAttribute(name = "usuario", required = false) Usuario usuario, Model model,
+			SessionStatus status) {
+
+		
+		if(usuario == null) { //Cuando se vuelve a enviar el formulario y ya no exista usuario en la sesion
+			return "redirect:/form";
+		}
+		model.addAttribute("titulo", "Resultado del formulario ");
 		model.addAttribute("usuario", usuario);
+		model.addAttribute("fechas", "Diferente formato de fechas");
+
 		status.setComplete(); // -> cerramos la session del llenado del formulario usando una estancia de
 								// SessionStatus
-
 		return "resultado";
 	}
 

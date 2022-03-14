@@ -25,9 +25,12 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.vaescode.springbootform.app.editors.NombreMayusculaEditors;
 import com.vaescode.springbootform.app.editors.PaisPropertyEditor;
+import com.vaescode.springbootform.app.editors.RolesEditors;
 import com.vaescode.springbootform.app.models.domain.Pais;
+import com.vaescode.springbootform.app.models.domain.Role;
 import com.vaescode.springbootform.app.models.domain.Usuario;
 import com.vaescode.springbootform.app.services.IPaisesService;
+import com.vaescode.springbootform.app.services.IRoleService;
 import com.vaescode.springbootform.app.validation.UsuarioValidador;
 
 @Controller
@@ -41,7 +44,14 @@ public class FormController {
 	private IPaisesService paisesService;
 
 	@Autowired
+	private IRoleService roleService;
+	
+	@Autowired
 	private PaisPropertyEditor paisEditor;
+	
+	@Autowired
+	private RolesEditors roleEditor;
+	
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -60,6 +70,12 @@ public class FormController {
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditors());
 
 		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
+		binder.registerCustomEditor(Role.class, "roles", roleEditor);
+	}
+	
+	@ModelAttribute("listaRoles")
+	public List<Role> listaRoles(){
+		return this.roleService.listar();
 	}
 
 	@ModelAttribute("listaPaises")
